@@ -6,6 +6,7 @@ $(document).ready(function(){
 
    var is_gaming = false, is_player_turn = true;
    var is_first_step = true;
+   var lock = false;
 
    var board = new Array(15);
    for (var i=0; i<15; i++) {
@@ -103,7 +104,9 @@ $(document).ready(function(){
    }
 
    canvas.onmousedown = function (e) {
-      if (is_gaming && is_player_turn) {
+      e.preventDefault();
+      if (!lock && is_gaming && is_player_turn) {
+         lock = true;
          var loc = windowToCanvas(canvas, e.clientX, e.clientY);
          var bp = calcBoardPos(loc.x, loc.y);
 
@@ -113,6 +116,7 @@ $(document).ready(function(){
             if (is_gaming) {
                // Get computer steps
                alert("cp step");
+               lock = true;
                var opt = {
                   type: "GET",
                   url:  "/board/0/computer_turn",
@@ -126,6 +130,7 @@ $(document).ready(function(){
                      drawPiece(x1, y1, 'w');
                      is_player_turn = true;
                      is_first_step = true;
+                     lock = false;
                      // Check if game is over.
                      game_over();
                   }
@@ -168,6 +173,7 @@ $(document).ready(function(){
                $.ajax(opt);
             }
          }
+         lock = false;
       }
    }
 
