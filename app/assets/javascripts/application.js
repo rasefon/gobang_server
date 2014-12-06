@@ -14,5 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require foundation
-//= require_tree .
+//= require board.js
+//= require heartcode-canvasloader-min.js
+//= require tt.js
 $(function(){ $(document).foundation(); });

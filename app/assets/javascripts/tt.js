@@ -13,6 +13,16 @@ $(document).ready(function(){
       board[i] = new Array(15);
    }
 
+   //loading gif
+   var cl = new CanvasLoader("cp-thinking-ph");
+   cl.setColor('#47ad9f'); // default is '#000000'
+   cl.setShape('spiral'); // default is 'oval'
+   cl.setDiameter(50); // default is 40
+   cl.setDensity(39); // default is 40
+   cl.setRange(1.2); // default is 1.3
+   cl.setSpeed(3); // default is 2
+   cl.setFPS(20); // default is 24
+
    function resetBoard() {
       for (var i=0; i<15; i++) {
          for (var j=0; j<15; j++) {
@@ -115,7 +125,8 @@ $(document).ready(function(){
             game_over();
             if (is_gaming) {
                // Get computer steps
-               alert("cp step");
+               //alert("cp step");
+               cl.show(); 
                lock = true;
                var opt = {
                   type: "GET",
@@ -131,6 +142,7 @@ $(document).ready(function(){
                      is_player_turn = true;
                      is_first_step = true;
                      lock = false;
+                     cl.hide();
                      // Check if game is over.
                      game_over();
                   }
