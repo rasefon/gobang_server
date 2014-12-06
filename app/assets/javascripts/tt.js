@@ -32,6 +32,7 @@ $(document).ready(function(){
       is_gaming = true;
       is_player_turn = true;
       is_first_step = true;
+      lock = false;
    }
 
    function windowToCanvas(canvas, x, y) {
@@ -127,7 +128,6 @@ $(document).ready(function(){
                // Get computer steps
                //alert("cp step");
                cl.show(); 
-               lock = true;
                var opt = {
                   type: "GET",
                   url:  "/board/0/computer_turn",
@@ -153,6 +153,7 @@ $(document).ready(function(){
          }
 
          var step_fail = function(xhr, status, error) {
+            lock = false;
             alert("invalid step!");
          }
 
@@ -164,6 +165,7 @@ $(document).ready(function(){
                   data: {x: bp.x, y: bp.y, first_step: 1},
                   dataType: "json",
                   success: function() {
+                     lock = false;
                      game_over();
                   }
                }
@@ -185,7 +187,6 @@ $(document).ready(function(){
                $.ajax(opt);
             }
          }
-         lock = false;
       }
    }
 

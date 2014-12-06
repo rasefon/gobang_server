@@ -48,6 +48,7 @@ class BoardController < ApplicationController
          if params[:first_step] == '1'
             step_msg = "|#{params[:x]},#{params[:y]}|0\0"
             $board.write step_msg
+            render json: {"msg" => "Step 1 succeed"}, status: 201
          else
             step_msg = "|#{params[:x]},#{params[:y]}|1\0"
             $board.write step_msg
